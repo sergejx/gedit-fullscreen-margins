@@ -1,0 +1,7 @@
+Fullscreen Margins plugin for Gedit
+===================================
+
+If window is in fullscreen mode, this plugin adds margins to avoid displaying too long lines. This allows to turn Gedit into "distraction free editor".
+
+Installation: Copy files fullscreen_margins.plugin and fullscreen_margins.py to ~/.local/share/gedit/plugins directory and enable plugin in Gedit preferences.
+
