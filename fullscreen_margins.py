@@ -16,8 +16,13 @@ class FullscreenMarginsWindowActivatable(GObject.Object,
         self.tab_handler = self.window.connect("tab-added", self.on_tab_added)
 
     def do_deactivate(self):
+        # Remove event handelers
         self.window.disconnect(self.state_handler)
         self.window.disconnect(self.tab_handler)
+        # Remove margins
+        if self.margins > 0:
+            self.margins = 0
+            self.set_all_margins()
 
     def do_update_state(self):
         pass
