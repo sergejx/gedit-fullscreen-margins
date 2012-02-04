@@ -75,5 +75,8 @@ class FullscreenMarginsWindowActivatable(GObject.Object,
 
     def set_margins(self, view):
         """Set margins width to self.margins in a view."""
-        view.set_right_margin(self.margins)
-        view.set_left_margin(self.margins)
+        margins = self.margins
+        if margins < 2:
+            margins = 2
+        view.set_left_margin(margins)
+        view.set_right_margin(margins)
