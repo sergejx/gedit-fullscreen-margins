@@ -28,12 +28,14 @@ class FullscreenMarginsWindowActivatable(GObject.Object,
             self.margins = self.compute_size()
             self.set_all_margins()
         else:
-            self.margins = 0
-            self.set_all_margins()
+            if self.margins > 0:
+                self.margins = 0
+                self.set_all_margins()
 
     def on_tab_added(self, win, tab):
         """Set margins for new tabs."""
-        self.set_margins(tab.get_view())
+        if self.margins > 0:
+            self.set_margins(tab.get_view())
 
     def get_char_width(self):
         """Try to get current default font and calculate character width."""
