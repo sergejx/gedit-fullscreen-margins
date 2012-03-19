@@ -22,9 +22,8 @@
 
 from gi.repository import GObject, Gedit, Gdk, Pango
 
-class FullscreenMarginsWindowActivatable(GObject.Object,
-                                         Gedit.WindowActivatable):
-    __gtype_name__ = "FullscreenMarginsWindowActivatable"
+class FullscreenMargins(GObject.Object, Gedit.WindowActivatable):
+    __gtype_name__ = "FullscreenMargins"
 
     window = GObject.property(type=Gedit.Window)
 
@@ -33,14 +32,14 @@ class FullscreenMarginsWindowActivatable(GObject.Object,
         self.margins = 0 # Currently used margins width
 
     def do_activate(self):
-        self.state_handler = self.window.connect("window-state-event",
-                                                 self.on_state_changed)
-        self.tab_handler = self.window.connect("tab-added", self.on_tab_added)
+        self.handlers = [
+            self.window.connect("window-state-event", self.on_state_changed),
+            self.window.connect("tab-added", self.on_tab_added)]
 
     def do_deactivate(self):
         # Remove event handelers
-        self.window.disconnect(self.state_handler)
-        self.window.disconnect(self.tab_handler)
+        for handler in self.handlers:
+            self.window.disconnect(handler)
         # Remove margins
         if self.margins > 0:
             self.margins = 0
