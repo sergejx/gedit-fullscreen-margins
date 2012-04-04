@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
-#  fullscreen_margins.py
-#    ~ Add margins in fullscreen mode, so lines are not too long.
+#  fullscreen_margins.py (v0.1)
+#    ~ Add margins around text in fullscreen mode, so lines are not too long.
 #
 #  Copyright (C) 2012 - Sergej Chodarev
 #
