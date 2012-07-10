@@ -5,5 +5,8 @@ A plugin adds margins around text in fullscreen mode. This makes text centered
 in a column with a width of around 80 characters. By avoiding too long lines,
 it allows to turn Gedit into "distraction free editor".
 
-Installation: Copy files fullscreen_margins.plugin and fullscreen_margins.py to
-~/.local/share/gedit/plugins and enable plugin in Gedit preferences.
+This is a backport of the plugin for Gedit 2.
+
+Installation: Copy files fullscreen_margins.gedit-plugin and
+fullscreen_margins.py to ~/.gnome-2/gedit/plugins and enable
+plugin in Gedit preferences.

@@ -20,16 +20,32 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330,
 #  Boston, MA 02111-1307, USA.
 
-from gi.repository import GObject, Gedit, Gdk, Pango
+import gtk
+import gtk.gdk
+import gedit
+import pango
 
-class FullscreenMargins(GObject.Object, Gedit.WindowActivatable):
-    __gtype_name__ = "FullscreenMargins"
-
-    window = GObject.property(type=Gedit.Window)
-
+class FullscreenMarginsPlugin(gedit.Plugin):
     def __init__(self):
-        GObject.Object.__init__(self)
+        gedit.Plugin.__init__(self)
+        self._instances = {}
+
+    def activate(self, window):
+        self._instances[window] = FullscreenMargins(window)
+
+    def deactivate(self, window):
+        self._instances[window].do_deactivate()
+        del self._instances[window]
+
+    def update_ui(self, window):
+        self._instances[window].do_update_state()
+
+class FullscreenMargins(object):
+
+    def __init__(self, window):
+        self.window = window
         self.margins = 0 # Currently used margins width
+        self.do_activate()
 
     def do_activate(self):
         self.handlers = [
@@ -44,13 +60,14 @@ class FullscreenMargins(GObject.Object, Gedit.WindowActivatable):
         if self.margins > 0:
             self.margins = 0
             self.set_all_margins()
+        self.window = None
 
     def do_update_state(self):
         pass
 
     def on_state_changed(self, win, state):
         """React to change of window state."""
-        if (state.new_window_state & Gdk.WindowState.FULLSCREEN):
+        if (state.new_window_state & gtk.gdk.WINDOW_STATE_FULLSCREEN):
             self.margins = self.compute_size()
             self.set_all_margins()
         else:
@@ -72,10 +89,10 @@ class FullscreenMargins(GObject.Object, Gedit.WindowActivatable):
             description = context.get_font(context.get_state()).copy()
             # Get font metrics
             pango_context = view.get_pango_context()
-            lang = Pango.Language.get_default()
+            lang = pango_context.get_language()
             metrics = pango_context.get_metrics(description, lang)
             # Calculate char width in pixels
-            width = metrics.get_approximate_char_width() / Pango.SCALE
+            width = metrics.get_approximate_char_width() / pango.SCALE
             return width
         except:
             return 8 # If it didn't work, just use some appropriate value

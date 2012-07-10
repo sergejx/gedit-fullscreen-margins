@@ -1,7 +1,7 @@
-[Plugin]
+[Gedit Plugin]
 Loader=python
 Module=fullscreen_margins
-IAge=3
+IAge=2
 Name=Fullscreen Margins
 Description=Add margins around text in fullscreen mode, so lines are not too long.
 Authors=Sergej Chodarev
