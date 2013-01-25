@@ -82,10 +82,14 @@ class FullscreenMargins(GObject.Object, Gedit.WindowActivatable):
 
     def compute_size(self):
         """Compute optimal size of margins."""
-        scr_width = self.window.get_screen().get_width()
+        # Get current monitor number
+        screen = self.window.get_screen()
+        monitor_n = screen.get_monitor_at_window(self.window.get_window())
+        # and its width
+        scr_width = screen.get_monitor_geometry(monitor_n).width
         char_width = self.get_char_width()
         # Space for 80 chars + line numbers + scrollbar
-        text_width = char_width * 86;
+        text_width = char_width * 86
         margins = scr_width - text_width
         return int(margins / 2)
 
