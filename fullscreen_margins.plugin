@@ -1,5 +1,5 @@
 [Plugin]
-Loader=python
+Loader=python3
 Module=fullscreen_margins
 IAge=3
 Name=Fullscreen Margins
