@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-#  fullscreen_margins.py (v0.2)
+#  fullscreen_margins.py (v1.0)
 #    ~ Add margins around text in fullscreen mode, so lines are not too long.
 #
 #  Copyright (C) 2012 - Sergej Chodarev
@@ -89,8 +89,8 @@ class FullscreenMargins(GObject.Object, Gedit.WindowActivatable):
         scr_width = screen.get_monitor_geometry(monitor_n).width
         # Get gutter width
         view = self.window.get_active_view()
-        gutter = view.get_gutter(Gtk.TextWindowType.LEFT)
-        gutter_width = gutter.get_window().get_width()
+        gutter_win = view.get_gutter(Gtk.TextWindowType.LEFT).get_window()
+        gutter_width = gutter_win.get_width() if gutter_win else 0
         # Get scrollbar width
         scrollbar = view.get_parent().get_vscrollbar()
         scrollbar_width = scrollbar.get_allocated_width()
