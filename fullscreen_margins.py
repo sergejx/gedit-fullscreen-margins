@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-#  fullscreen_margins.py (v1.0)
+#  fullscreen_margins.py (v1.1)
 #    ~ Add margins around text in fullscreen mode, so lines are not too long.
 #
 #  Copyright (C) 2012 - Sergej Chodarev
@@ -94,9 +94,9 @@ class FullscreenMargins(GObject.Object, Gedit.WindowActivatable):
         # Get scrollbar width
         scrollbar = view.get_parent().get_vscrollbar()
         scrollbar_width = scrollbar.get_allocated_width()
-        # Space for around 80 chars
+        # Calculate text width (use right_margin_position for column width)
         char_width = self.get_char_width()
-        text_width = char_width * 81
+        text_width = char_width * view.get_right_margin_position() + 4
         margins = scr_width - text_width - gutter_width - scrollbar_width
         return int(margins / 2)
 
