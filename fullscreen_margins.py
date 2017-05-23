@@ -97,7 +97,12 @@ class FullscreenMargins(GObject.Object, Gedit.WindowActivatable):
         # Calculate text width (use right_margin_position for column width)
         char_width = self.get_char_width()
         text_width = char_width * view.get_right_margin_position() + 4
-        margins = scr_width - text_width - gutter_width - scrollbar_width
+        # Get sidepanel width
+        sidepanel = self.window.get_side_panel()
+        sidepanel_visible = sidepanel.get_visible()
+        sidepanel_width = sidepanel.get_allocated_width() if sidepanel_visible else 0
+        # Calculate margins
+        margins = scr_width - text_width - gutter_width - scrollbar_width - sidepanel_width
         return int(margins / 2)
 
     def set_all_margins(self):
