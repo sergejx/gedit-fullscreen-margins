@@ -115,8 +115,5 @@ class FullscreenMargins(GObject.Object, Gedit.WindowActivatable):
         margins = self.margins
         if margins < 2:
             margins = 2
-        # Don't add left margin if margin indicator is shown,
-        # because Gedit would do it automatically
-        if not view.get_show_right_margin():
-            view.set_left_margin(margins)
+        view.set_left_margin(margins)
         view.set_right_margin(margins)
